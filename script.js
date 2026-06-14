@@ -1912,7 +1912,7 @@ function createParticles() {
 
 /* ── INIT ── */
 window.addEventListener('DOMContentLoaded', ()=>{
-  // Force close ALL modals first — prevent ghost-open on reload
+  // Force close ALL modals first
   ['modal-result','modal-admin','modal-pin'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.remove('open');
@@ -1921,11 +1921,10 @@ window.addEventListener('DOMContentLoaded', ()=>{
   loadState();
   createParticles();
 
-  // If already logged in, go to galaxy
+  // ถ้า login แล้ว → ข้ามไป Galaxy เลย ไม่ต้องผ่านหน้า Login
   if (State.user) {
-    document.getElementById('inp-name').value   = State.user.name;
-    document.getElementById('inp-school').value = State.user.school || '';
     updateHUD();
     updatePlanetStatuses();
+    showScreen('screen-galaxy');
   }
 });
