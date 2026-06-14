@@ -84,8 +84,8 @@ input:focus, select:focus { outline: none; }
 }
 
 /* ── SCREENS ── */
-.screen { display: none; position: relative; z-index: 1; min-height: 100vh; }
-.screen.active { display: block; }
+.screen { display: none !important; position: relative; z-index: 1; min-height: 100vh; }
+.screen.active { display: block !important; }
 
 /* ── GLASS CARD ── */
 .glass-card {
@@ -531,6 +531,21 @@ input[type="range"]::-moz-range-thumb {
 /* ════════════════════════════════
    MODALS
 ════════════════════════════════ */
+/* ════════════════════════════════
+   MODAL — FORCE HIDDEN ON LOAD
+   (ป้องกัน modal โผล่เอง)
+════════════════════════════════ */
+#modal-result,
+#modal-admin,
+#modal-pin {
+  display: none !important;
+}
+#modal-result.open,
+#modal-admin.open,
+#modal-pin.open {
+  display: flex !important;
+}
+
 .modal-overlay {
   position: fixed; inset: 0; z-index: 100;
   background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);

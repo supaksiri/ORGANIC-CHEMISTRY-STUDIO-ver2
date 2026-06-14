@@ -533,9 +533,16 @@ function awardBadge(id) {
    SECTION 6: UI HELPERS
 ══════════════════════════════════════ */
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active');
+    s.style.display = 'none';
+  });
   const el = document.getElementById(id);
-  if (el) { el.classList.add('active'); el.scrollTop = 0; window.scrollTo(0,0); }
+  if (el) {
+    el.style.display = 'block';
+    el.classList.add('active');
+    window.scrollTo(0, 0);
+  }
 }
 
 function showToast(msg, dur=2800) {
