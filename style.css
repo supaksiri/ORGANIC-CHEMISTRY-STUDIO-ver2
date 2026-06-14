@@ -534,8 +534,13 @@ input[type="range"]::-moz-range-thumb {
 .modal-overlay {
   position: fixed; inset: 0; z-index: 100;
   background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
-  display: flex !important; align-items: center; justify-content: center; padding: 20px;
+  display: none;
+  align-items: center; justify-content: center; padding: 20px;
 }
+.modal-overlay.open {
+  display: flex;
+}
+/* Remove body:has override that forced flex */
 .modal-card { padding: 32px; width: 100%; max-width: 480px; }
 .wide-modal { max-width: 700px; }
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }

@@ -1408,16 +1408,16 @@ function endQuiz() {
   document.getElementById('res-xp').textContent = `+${score*10+( passed?50:0)}`;
   document.getElementById('res-badge').textContent = passed ? (BADGE_MAP[`p${pn}`]||'🏅') : '—';
 
-  document.getElementById('modal-result').style.display='flex';
+  showModal('modal-result');
 }
 
 function closeResult() {
-  document.getElementById('modal-result').style.display='none';
+  hideModal('modal-result');
   goGalaxy();
 }
 
 function exitQuiz() {
-  document.getElementById('modal-result').style.display='none';
+  hideModal('modal-result');
   goGalaxy();
 }
 
@@ -1559,28 +1559,56 @@ function screenshotCert() { showToast('📸 ใช้ Ctrl+Shift+S หรือ 
    SECTION 14: ADMIN PANEL
 ══════════════════════════════════════ */
 function openAdmin() {
-  const pin = prompt('รหัส Admin:');
-  if (!pin) return;
-  if (pin !== State.adminPin && pin !== 'admin') { showToast('❌ รหัสไม่ถูกต้อง'); return; }
+  document.getElementById('admin-pin-input').value = '';
+  document.getElementById('pin-error').textContent = '';
+  showModal('modal-pin');
+  setTimeout(()=>document.getElementById('admin-pin-input').focus(), 100);
+}
+
+function verifyAdminPin() {
+  const pin = document.getElementById('admin-pin-input').value.trim();
+  if (!pin) { document.getElementById('pin-error').textContent = 'กรุณาใส่รหัส'; return; }
+  if (pin !== State.adminPin && pin !== 'admin') {
+    document.getElementById('pin-error').textContent = '❌ รหัสไม่ถูกต้อง';
+    document.getElementById('admin-pin-input').value = '';
+    return;
+  }
+  hideModal('modal-pin');
   const records = JSON.parse(localStorage.getItem('ochem_records')||'[]');
   let html = '';
   if (!records.length) {
-    html = '<div class="admin-no-data">ยังไม่มีข้อมูลนักเรียน</div>';
+    html = '<div class="admin-no-data">ยังไม่มีข้อมูลนักเรียน<br><small style="color:var(--c-text-3)">นักเรียนต้องเข้าสู่ระบบและเล่นก่อน</small></div>';
   } else {
     html = `<table class="admin-table">
       <tr><th>ชื่อ</th><th>ชั้น</th><th>เลขที่</th><th>XP</th><th>Lv</th><th>ด่านผ่าน</th><th>Badge</th><th>สอบ</th><th>ล่าสุด</th></tr>
       ${records.map(r=>`<tr>
-        <td>${r.name}</td><td>${r.class}</td><td>${r.number}</td>
-        <td>${r.xp}</td><td>${r.level}</td><td>${r.planets}/9</td>
-        <td>${r.badges}</td><td>${r.examScore}</td><td>${r.lastSeen}</td>
+        <td>${r.name||'-'}</td><td>${r.class||'-'}</td><td>${r.number||'-'}</td>
+        <td>${r.xp||0}</td><td>${r.level||1}</td><td>${r.planets||0}/9</td>
+        <td>${r.badges||0}</td><td>${r.examScore||0}</td><td>${r.lastSeen||'-'}</td>
       </tr>`).join('')}
     </table>`;
   }
   document.getElementById('admin-content').innerHTML = html;
-  document.getElementById('modal-admin').style.display='flex';
+  showModal('modal-admin');
 }
 
-function closeAdmin() { document.getElementById('modal-admin').style.display='none'; }
+function showModal(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = 'flex';
+  el.classList.add('open');
+}
+
+function hideModal(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = 'none';
+  el.classList.remove('open');
+}
+
+function closeAdmin() {
+  hideModal('modal-admin');
+}
 
 function clearAllData() {
   if (!confirm('ล้างข้อมูลทั้งหมด? ไม่สามารถกู้คืนได้')) return;

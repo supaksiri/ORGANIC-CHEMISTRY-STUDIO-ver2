@@ -266,6 +266,26 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════ MODAL: ADMIN PIN -->
+<div id="modal-pin" class="modal-overlay" style="display:none">
+  <div class="modal-card glass-card" style="max-width:360px">
+    <div class="modal-header">
+      <h2>🔑 ใส่รหัส Admin</h2>
+      <button class="btn-icon" onclick="hideModal('modal-pin')">✕</button>
+    </div>
+    <div style="margin:16px 0">
+      <input type="password" id="admin-pin-input" placeholder="รหัส Admin (default: 1234)"
+        style="width:100%;background:rgba(10,30,70,0.6);border:1px solid var(--c-border);border-radius:8px;color:var(--c-text);padding:10px 14px;font-size:1rem;font-family:inherit"
+        onkeydown="if(event.key==='Enter') verifyAdminPin()">
+      <div id="pin-error" style="color:#f87171;font-size:0.85rem;margin-top:8px;min-height:20px"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="hideModal('modal-pin')" style="width:auto">ยกเลิก</button>
+      <button class="btn-primary" onclick="verifyAdminPin()" style="width:auto;padding:10px 24px">เข้าสู่ระบบ</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════════════════════════════════ TOAST -->
 <div id="toast" class="toast"></div>
 
