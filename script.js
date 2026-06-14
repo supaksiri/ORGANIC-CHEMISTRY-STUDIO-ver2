@@ -1562,7 +1562,6 @@ function openAdmin() {
   document.getElementById('admin-pin-input').value = '';
   document.getElementById('pin-error').textContent = '';
   showModal('modal-pin');
-  setTimeout(()=>document.getElementById('admin-pin-input').focus(), 100);
 }
 
 function verifyAdminPin() {
@@ -1595,14 +1594,12 @@ function verifyAdminPin() {
 function showModal(id) {
   const el = document.getElementById(id);
   if (!el) return;
-  el.style.display = 'flex';
   el.classList.add('open');
 }
 
 function hideModal(id) {
   const el = document.getElementById(id);
   if (!el) return;
-  el.style.display = 'none';
   el.classList.remove('open');
 }
 
@@ -1915,6 +1912,12 @@ function createParticles() {
 
 /* ── INIT ── */
 window.addEventListener('DOMContentLoaded', ()=>{
+  // Force close ALL modals first — prevent ghost-open on reload
+  ['modal-result','modal-admin','modal-pin'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('open');
+  });
+
   loadState();
   createParticles();
 
