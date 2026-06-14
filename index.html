@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Organic Chemistry Studio — Grade 12</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ PARTICLES BG -->
+<div id="particles-container"></div>
+
+<!-- ═══════════════════════════════════════════ SCREEN: LOGIN -->
+<div id="screen-login" class="screen active">
+  <div class="login-wrap">
+    <div class="login-logo">
+      <div class="atom-icon">
+        <div class="nucleus"></div>
+        <div class="orbit orbit1"><div class="electron"></div></div>
+        <div class="orbit orbit2"><div class="electron"></div></div>
+        <div class="orbit orbit3"><div class="electron"></div></div>
+      </div>
+      <h1>Organic Chemistry Studio</h1>
+      <p class="login-subtitle">ห้องปฏิบัติการเคมีอินทรีย์เสมือนจริง • ม.6</p>
+    </div>
+    <div class="login-card glass-card">
+      <h2>เริ่มต้นการเรียนรู้</h2>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>ชื่อ-นามสกุล</label>
+          <input type="text" id="inp-name" placeholder="ระบุชื่อ-นามสกุล" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label>ชั้น</label>
+          <select id="inp-class">
+            <option value="">เลือกชั้น</option>
+            <option>ม.6/1</option><option>ม.6/2</option><option>ม.6/3</option>
+            <option>ม.6/4</option><option>ม.6/5</option><option>ม.6/6</option>
+            <option>ม.6/7</option><option>ม.6/8</option><option>ม.6/9</option><option>ม.6/10</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>เลขที่</label>
+          <input type="number" id="inp-number" placeholder="เลขที่" min="1" max="50">
+        </div>
+        <div class="form-group full">
+          <label>โรงเรียน</label>
+          <input type="text" id="inp-school" placeholder="ชื่อโรงเรียน" autocomplete="off">
+        </div>
+      </div>
+      <div id="login-error" class="error-msg"></div>
+      <button class="btn-primary btn-glow" onclick="doLogin()">🚀 เริ่มเรียน</button>
+      <button class="btn-ghost" onclick="openAdmin()">🔑 Admin</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SCREEN: GALAXY -->
+<div id="screen-galaxy" class="screen">
+  <div class="galaxy-header">
+    <div class="student-info-bar">
+      <span id="gx-name"></span>
+      <div class="hud-row">
+        <div class="hud-hearts" id="hud-hearts"></div>
+        <div class="hud-xp">
+          <span id="hud-level">Lv.1</span>
+          <div class="xp-bar"><div class="xp-fill" id="xp-fill"></div></div>
+          <span id="hud-xp-text">0 XP</span>
+        </div>
+        <button class="btn-icon" onclick="openAdmin()" title="Admin">⚙️</button>
+        <button class="btn-icon" onclick="doLogout()" title="ออกจากระบบ">🚪</button>
+      </div>
+    </div>
+    <h2 class="galaxy-title">🌌 Learning Galaxy</h2>
+    <p class="galaxy-sub">เลือก Planet เพื่อเริ่มเรียนรู้ — สามารถเข้าเรียนด่านใดก็ได้</p>
+  </div>
+  <div class="planets-grid">
+    <div class="planet-card" data-planet="1" onclick="enterPlanet(1)">
+      <div class="planet-orb p1">🪐</div>
+      <div class="planet-name">Carbon World</div>
+      <div class="planet-desc">ธาตุ • คุณสมบัติ • การสร้างพันธะ</div>
+      <div class="planet-status" id="pstatus-1">⭕ ยังไม่เริ่ม</div>
+    </div>
+    <div class="planet-card" data-planet="2" onclick="enterPlanet(2)">
+      <div class="planet-orb p2">⚗️</div>
+      <div class="planet-name">Bond Laboratory</div>
+      <div class="planet-desc">Single • Double • Triple Bond</div>
+      <div class="planet-status" id="pstatus-2">⭕ ยังไม่เริ่ม</div>
+    </div>
+    <div class="planet-card" data-planet="3" onclick="enterPlanet(3)">
+      <div class="planet-orb p3">🔬</div>
+      <div class="planet-name">Structure Studio</div>
+      <div class="planet-desc">สูตรโมเลกุล • สูตรย่อ • Line Angle</div>
+      <div class="planet-status" id="pstatus-3">⭕ ยังไม่เริ่ม</div>
+    </div>
+    <div class="planet-card" data-planet="4" onclick="enterPlanet(4)">
+      <div class="planet-orb p4">🧪</div>
+      <div class="planet-name">Hydrocarbon Planet</div>
+      <div class="planet-desc">Alkane • Alkene • Alkyne • Aromatic</div>
+      <div class="planet-status" id="pstatus-4">⭕ ยังไม่เริ่ม</div>
+    </div>
+    <div class="planet-card" data-planet="5" onclick="enterPlanet(5)">
+      <div class="planet-orb p5">🏛️</div>
+      <div class="planet-name">Functional Group Museum</div>
+      <div class="planet-desc">14 หมู่ฟังก์ชัน • Gallery • Highlight</div>
+      <div class="planet-status" id="pstatus-5">⭕ ยังไม่เริ่ม</div>
+    </div>
+    <div class="planet-card" data-planet="6" onclick="enterPlanet(6)">
+      <div class="planet-orb p6">🎓</div>
+      <div class="planet-name">IUPAC Academy</div>
+      <div class="planet-desc">6 Steps • Name Generator</div>
+      <div class="planet-status" id="pstatus-6">⭕ ยังไม่เริ่ม</div>
+    </div>
+    <div class="planet-card" data-planet="7" onclick="enterPlanet(7)">
+      <div class="planet-orb p7">🔧</div>
+      <div class="planet-name">Organic Builder</div>
+      <div class="planet-desc">สร้างโมเลกุลเอง • Real-time Structure</div>
+      <div class="planet-status" id="pstatus-7">⭕ ยังไม่เริ่ม</div>
+    </div>
+    <div class="planet-card" data-planet="8" onclick="enterPlanet(8)">
+      <div class="planet-orb p8">🎮</div>
+      <div class="planet-name">Challenge Arena</div>
+      <div class="planet-desc">5 Mini Games • FG Hunter • Build</div>
+      <div class="planet-status" id="pstatus-8">⭕ ยังไม่เริ่ม</div>
+    </div>
+    <div class="planet-card planet-final" data-planet="9" onclick="enterPlanet(9)">
+      <div class="planet-orb p9">🏆</div>
+      <div class="planet-name">Final Examination</div>
+      <div class="planet-desc">50 ข้อ จาก 100+ คำถาม</div>
+      <div class="planet-status" id="pstatus-9">⭕ ยังไม่เริ่ม</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SCREEN: PLANET CONTENT -->
+<div id="screen-planet" class="screen">
+  <div class="planet-header">
+    <button class="btn-back" onclick="goGalaxy()">← กลับ Galaxy</button>
+    <div class="planet-hud">
+      <div class="hud-hearts" id="planet-hearts"></div>
+      <span id="planet-level-text"></span>
+      <span id="planet-xp-text"></span>
+    </div>
+  </div>
+  <div id="planet-content-area"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SCREEN: QUIZ -->
+<div id="screen-quiz" class="screen">
+  <div class="quiz-header">
+    <button class="btn-back" onclick="exitQuiz()">← ออก</button>
+    <div id="quiz-title-bar"></div>
+    <div class="quiz-hud">
+      <div class="hud-hearts" id="quiz-hearts"></div>
+      <div class="quiz-progress">
+        <span id="quiz-q-num">1/10</span>
+        <div class="progress-bar"><div class="progress-fill" id="quiz-prog"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="quiz-body">
+    <div id="quiz-hint-box" class="hint-box" style="display:none">
+      <span class="hint-robot">🤖</span>
+      <span id="quiz-hint-text"></span>
+    </div>
+    <div class="quiz-question-card glass-card">
+      <div id="quiz-molecule-display"></div>
+      <div id="quiz-question-text" class="question-text"></div>
+      <div id="quiz-options" class="options-grid"></div>
+    </div>
+    <div class="quiz-actions">
+      <button class="btn-hint" onclick="useHint()">💡 คำใบ้ (AI)</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SCREEN: FINAL EXAM -->
+<div id="screen-exam" class="screen">
+  <div class="exam-header">
+    <button class="btn-back" onclick="exitExam()">← ออก</button>
+    <div class="exam-info">
+      <span id="exam-q-counter">ข้อที่ 1/50</span>
+      <div class="hud-hearts" id="exam-hearts"></div>
+      <div class="exam-timer">⏱ <span id="exam-timer">00:00</span></div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="exam-prog"></div></div>
+  </div>
+  <div class="quiz-body">
+    <div id="exam-hint-box" class="hint-box" style="display:none">
+      <span class="hint-robot">🤖</span><span id="exam-hint-text"></span>
+    </div>
+    <div class="quiz-question-card glass-card">
+      <div id="exam-molecule-display"></div>
+      <div id="exam-question-text" class="question-text"></div>
+      <div id="exam-options" class="options-grid"></div>
+    </div>
+    <div class="quiz-actions">
+      <button class="btn-hint" onclick="useExamHint()">💡 คำใบ้</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SCREEN: CERTIFICATE -->
+<div id="screen-cert" class="screen">
+  <div class="cert-wrap">
+    <div class="cert-card glass-card" id="cert-printable">
+      <div class="cert-header">
+        <div class="cert-logo">🏆</div>
+        <div class="cert-title">ใบประกาศนียบัตร</div>
+        <div class="cert-subtitle">Organic Chemistry Studio</div>
+      </div>
+      <div class="cert-body">
+        <p>ขอแสดงความยินดีกับ</p>
+        <h2 id="cert-name"></h2>
+        <p id="cert-class"></p>
+        <div class="cert-score-row">
+          <div class="cert-score-box"><div class="cert-score-num" id="cert-score"></div><div>คะแนน</div></div>
+          <div class="cert-score-box"><div class="cert-score-num" id="cert-time"></div><div>เวลาที่ใช้</div></div>
+          <div class="cert-score-box"><div class="cert-score-num" id="cert-level"></div><div>ระดับ</div></div>
+        </div>
+        <div class="cert-badge" id="cert-badge"></div>
+        <div class="cert-badges-earned" id="cert-badges-earned"></div>
+      </div>
+      <div class="cert-footer">Organic Chemistry Studio • Grade 12 • Thailand</div>
+    </div>
+    <div class="cert-actions">
+      <button class="btn-primary" onclick="downloadCert()">📥 Download Certificate</button>
+      <button class="btn-secondary" onclick="screenshotCert()">📸 Screenshot</button>
+      <button class="btn-ghost" onclick="goGalaxy()">🌌 กลับ Galaxy</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ MODAL: RESULT -->
+<div id="modal-result" class="modal-overlay" style="display:none">
+  <div class="modal-card glass-card">
+    <div id="result-emoji" style="font-size:3rem;text-align:center"></div>
+    <h2 id="result-title" style="text-align:center"></h2>
+    <p id="result-msg" style="text-align:center;color:var(--c-text-2)"></p>
+    <div class="result-stats">
+      <div class="stat-box"><span id="res-score"></span><small>คะแนน</small></div>
+      <div class="stat-box"><span id="res-xp"></span><small>XP ได้รับ</small></div>
+      <div class="stat-box"><span id="res-badge"></span><small>Badge</small></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="closeResult()">✅ ต่อไป</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ MODAL: ADMIN -->
+<div id="modal-admin" class="modal-overlay" style="display:none">
+  <div class="modal-card glass-card wide-modal">
+    <div class="modal-header">
+      <h2>🔑 Admin Panel</h2>
+      <button class="btn-icon" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="admin-body">
+      <div id="admin-content"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeAdmin()">ปิด</button>
+      <button class="btn-danger" onclick="clearAllData()">🗑️ ล้างข้อมูลทั้งหมด</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ TOAST -->
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
